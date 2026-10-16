@@ -1,0 +1,32 @@
+name = "taxi-dispatcher"
+main = "src/worker.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+# The React UI is built into a single HTML file and bundled as text.
+[[rules]]
+type = "Text"
+globs = ["**/*.html"]
+fallthrough = false
+
+[ai]
+binding = "AI"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "taxi_bookings"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+migrations_dir = "migrations"
+
+[vars]
+# Azure resource host used for Urdu neural TTS (Speech or AI Services / Azure OpenAI resource).
+AZURE_TTS_HOST = "your-resource.openai.azure.com"
+AZURE_REGION = "eastus"
+
+# Secrets (set with `wrangler secret put <NAME>`, never commit values):
+#   AZURE_SPEECH_KEY  - Azure key used to mint Speech tokens (optional; Urdu falls back to MeloTTS without it)
+#   LOGS_TOKEN        - random token protecting /logs, /api/logs and /api/diag
+
+[observability]
+enabled = true
+head_sampling_rate = 1
